@@ -4,7 +4,7 @@ var mongo = require('./database/Connection');
 
 router.get('/',function(request, response)
 {
-    mongo.getDB()
+    console.log(mongo.getDB())
 });
 
 module.exports = router;
