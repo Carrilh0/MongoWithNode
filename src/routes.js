@@ -1,13 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var mongo = require('./database/Connection');
+var UserController = require('./Controllers/UserController');
 
-router.get('/users',function(request, response)
-{
-    mongo.getDB().collection('users').find().toArray()
-        .then(function(res){
-            response.send(res);
-        })
-});
+
+router.get('/users', UserController.listar);
 
 module.exports = router;
