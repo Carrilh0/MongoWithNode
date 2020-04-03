@@ -22,13 +22,17 @@ class UserController{
 
     async create(request, response)
     {
+        //Id do autoincrement
         var id = await helper('user_id');
+
+        //Recupera os valores vindo do JSON
+        var {nome, idade, sexo } = request.body;
         
-        var {nome, idade, sexo } = request.body;   
+        //Faz o cadastro de um novo usuario ultilizando o auto increment criado no JS
         await connection.getDB().collection('users').insert(
             {_id: id,nome : nome, idade: idade, sexo: sexo},
             function(err, obj){
-                console.log(obj)
+                response.send(obj.ops[0])
             }
         )
     }
