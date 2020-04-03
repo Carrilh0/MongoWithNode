@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var mongo = require('./database/Connection');
 
 router.get('/',function(request, response)
 {
-    response.end("Hello!")
+    mongo.getDB()
 });
 
 module.exports = router;
