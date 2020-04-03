@@ -1,25 +1,21 @@
 const connection = require('../database/Connection');
 
+ async function getValueForNextSequence(sequenceOfName){
+    var id;
 
- function getValueForNextSequence(sequenceOfName){
-    
-       connection.getDB().collection('sample').findAndModify(
+       var documento = connection.getDB().collection('sample').findAndModify(
           {_id: sequenceOfName },
           [],
           {$inc:{sequence_value:1}},
           {new: true},
-          function(err, obj) {
-            //Caso ainda não tenha um registro com esse nome ele gera um novo retornando 0
-            if (obj.value == null){
-                connection.getDB().collection('sample').insert(
-                    {_id : sequenceOfName, sequence_value: 0},
-                )
-                return 0;
-            }
-            //Retorna o ultimo increment
-            return obj.value.sequence_value;
-          }
+          
         )
+
+        await documento.then((res)=>{
+            id = res.value.sequence_value;
+        });
+
+        return id;
      }
 
 module.exports = getValueForNextSequence;

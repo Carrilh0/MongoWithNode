@@ -4,7 +4,7 @@ class UserController{
 
     async index(request, response) 
     {
-        helper("user_id")
+
         await connection.getDB().collection('users').find().toArray()
         .then(function(res){
             return response.send(res);
@@ -22,7 +22,15 @@ class UserController{
 
     async create(request, response)
     {
+        var id = await helper('user_id');
         
+        var {nome, idade, sexo } = request.body;   
+        await connection.getDB().collection('users').insert(
+            {_id: id,nome : nome, idade: idade, sexo: sexo},
+            function(err, obj){
+                console.log(obj)
+            }
+        )
     }
 }
 
