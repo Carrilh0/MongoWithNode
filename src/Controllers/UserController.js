@@ -13,8 +13,9 @@ class UserController{
 
     async find(request, response)
     {
-        var { id } = request.params;
-        await connection.getDB().collection('users').find({_id : teste}).toArray()
+        var id = parseInt(request.params.id);
+
+        await connection.getDB().collection('users').find({_id : id}).toArray()
         .then(function(res){
             return response.send(res);
         })
