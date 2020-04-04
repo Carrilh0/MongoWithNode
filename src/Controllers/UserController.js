@@ -37,6 +37,26 @@ class UserController{
             }
         )
     }
+
+    async update(request, response)
+    {
+        var id = parseInt(request.params.id);
+
+        var {nome, idade, sexo } = request.body;
+
+        await connection.getDB().collection('users').findOneAndUpdate(
+            {_id: id},
+            {$set:{nome : nome, idade: idade, sexo: sexo}},
+            function(err, obj){
+                response.send(obj.value)
+            }
+        )
+    }
+
+    async delete(request,response){
+
+    }
+
 }
 
 
