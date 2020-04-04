@@ -7,7 +7,7 @@ class UserController{
 
         await connection.getDB().collection('users').find().toArray()
         .then(function(res){
-            return response.send(res);
+            response.status(200).send(res);;
         })
     }
 
@@ -17,7 +17,7 @@ class UserController{
 
         await connection.getDB().collection('users').find({_id : id}).toArray()
         .then(function(res){
-            return response.send(res);
+            response.status(200).send(res);;
         })
     }
 
@@ -33,9 +33,9 @@ class UserController{
         await connection.getDB().collection('users').insert(
             {_id: id,nome : nome, idade: idade, sexo: sexo},
             function(err, obj){
-                response.send(obj.ops[0])
+                response.status(201).send(obj.ops[0]);
             }
-        )
+        );
     }
 
     async update(request, response)
@@ -47,14 +47,27 @@ class UserController{
         await connection.getDB().collection('users').findOneAndUpdate(
             {_id: id},
             {$set:{nome : nome, idade: idade, sexo: sexo}},
+            { returnOriginal: false },
             function(err, obj){
                 response.send(obj.value)
             }
-        )
+        );
     }
 
-    async delete(request,response){
+    async delete(request,response)
+    {
+        var id = parseInt(request.params.id);
 
+        await connection.getDB().collection('users').deleteOne({_id: id},
+            function(err, obj){
+                var status = JSON.stringify(obj.result.n)
+                if (status == 1){
+                    response.sendStatus(200);
+                } else {
+                    response.sendStatus(404);
+                }
+            }
+        );
     }
 
 }

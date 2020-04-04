@@ -10,8 +10,8 @@ router.get('/user/:id', UserController.find);
 router.post('/user', UserController.create);
 
 router.put('/user/:id', UserController.update);
-/*
-router.delete('/user', UserController.delete);*/
+
+router.delete('/user/:id', UserController.delete);
 
 
 
