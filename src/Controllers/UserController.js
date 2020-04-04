@@ -13,6 +13,7 @@ class UserController{
 
     async find(request, response)
     {
+        //Id do autoincrement
         var id = parseInt(request.params.id);
 
         await connection.getDB().collection('users').find({_id : id}).toArray()
@@ -40,8 +41,10 @@ class UserController{
 
     async update(request, response)
     {
+        //Id do autoincrement
         var id = parseInt(request.params.id);
-
+        
+        //Recupera os valores vindo do JSON
         var {nome, idade, sexo } = request.body;
 
         await connection.getDB().collection('users').findOneAndUpdate(
@@ -56,11 +59,13 @@ class UserController{
 
     async delete(request,response)
     {
+        //Id do autoincrement
         var id = parseInt(request.params.id);
 
         await connection.getDB().collection('users').deleteOne({_id: id},
             function(err, obj){
                 var status = JSON.stringify(obj.result.n)
+                // 1 = Deletado, Else = Não encontrado
                 if (status == 1){
                     response.sendStatus(200);
                 } else {

@@ -14,7 +14,7 @@ const connection = require('../database/Connection');
             };
         })
 
-        //autoincrement
+        //autoincrement na collection que referencia o proximo ID
        var documento = connection.getDB().collection('sample').findAndModify(
           {_id: sequenceOfName },
           [],
@@ -27,6 +27,7 @@ const connection = require('../database/Connection');
             id = res.value.sequence_value;
         });
 
+        //Retorna o ID para ser ultilizado no cadastro
         return id;
      }
 
