@@ -19,6 +19,6 @@
   "homepage": "https://github.com/Carrilh0/MongoWithNode#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mongodb": "^2.2.33"
+    "mongodb": "^3.6.1"
   }
 }
